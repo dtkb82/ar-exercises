@@ -3,17 +3,12 @@ require_relative '../setup'
 puts "Exercise 1"
 puts "----------"
 
-# ActiveRecord::Schema.define do
-# 	create_table :stores
-# 	  t.string :name
-# 	  t.string :annual_revenue
-# 	  t.string :mens_apparel
-# 	  t.string :womens_apparel
-# 	end
 
 class Store < ActiveRecord::Base
-  validates :name, presence: true
-  validates :annual_revenue, presence: true
+	has_many :employees
+
+	validates :name, length: { minimum: 3 }
+	validates :annual_revenue, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
 end
 
 Store.create!(
